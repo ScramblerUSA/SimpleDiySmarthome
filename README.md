@@ -15,8 +15,9 @@ Although it's super easy to follow this guide and make something, it is only tru
 1. Sourcing tools
 2. Sourcing components
 3. Sourcing smart devices
-4. Printing parts
-5. Assembling it together
+4. Making firmware
+5. Printing parts
+6. Assembling it together
 
 ## 
 All the things I share are always free.
