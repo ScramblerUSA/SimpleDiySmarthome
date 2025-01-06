@@ -53,5 +53,9 @@ dkms.conf
 
 ./vscode/*
 *.uvguix.*
-Output/*
-DebugConfig/*
+Output/
+DebugConfig/
+Objects/
+Listings/
+
+
