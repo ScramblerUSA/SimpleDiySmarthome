@@ -12,6 +12,51 @@ This is not to discourage or to deter you. I'm not one of those who say "*if you
 ## Project documentation
 Please visit my [SimpleDiySmartHome project page](https://scramblerusa.github.io/sdsh/) for detailed instructions on how to modify, program and assemble different kind of devices.
 
+## Print lists
+In order to make a device you will need to print and glue together a few different components. Here are the lists for different devices:
+- Single switch
+  - WallSwitch1.stl
+  - WallSwitch2.stl
+  - WallSwitch3.stl
+  - WallSwitch4.stl
+  - WallSwitch5.stl
+- Double switch (main on the left)
+  - WallSwitch1-dbl-b.stl
+  - WallSwitch2-2ch.stl
+  - WallSwitch3-2ch-a.stl
+  - WallSwitch3-dummy-a.stl
+  - WallSwitch4-2ch.stl
+  - WallSwitch5-2ch.stl
+  - WallSwitch6-dbl.stl
+- Double switch (main on the right)
+  - WallSwitch1-dbl-a.stl
+  - WallSwitch2-2ch.stl
+  - WallSwitch3-2ch-b.stl
+  - WallSwitch3-dummy-b.stl
+  - WallSwitch4-2ch.stl
+  - WallSwitch5-2ch.stl
+  - WallSwitch6-dbl.stl
+- Single dimmer
+  - WallSwitch1-2btn.stl
+  - WallSwitch2-dimmer2.stl
+  - WallSwitch3.stl
+  - WallSwitch4-dimmer2.stl
+- Double dimmer (main on the left)
+  - WallSwitch1-dbl-2btn.stl
+  - WallSwitch2-dimmer2.stl
+  - WallSwitch3-dbl-b.stl
+  - WallSwitch3-dummy-b.stl
+  - WallSwitch4-dimmer2.stl
+  - WallSwitch6-dbl.stl
+- Double dimmer (main on the right)
+  - WallSwitch1-dbl-2btn.stl
+  - WallSwitch2-dimmer2.stl
+  - WallSwitch3-dbl-a.stl
+  - WallSwitch3-dummy-a.stl
+  - WallSwitch4-dimmer2.stl
+  - WallSwitch6-dbl.stl
+
+
 ---
 All the things I share are always free.
 However, making them available (organizing, documenting, etc.) takes a lot of time. So, if you like what I'm doing please consider supporting me. Only if you can! If you struggle to pay your bills, please don't donate.
