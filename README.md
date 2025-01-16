@@ -9,7 +9,7 @@ Converting your entire house into a smart home is really expensive. I'd say it i
 Making and installing these devices will expose you to hot soldering iron, fumes from flux, dangerous mains voltage, etc. This may harm your health, kill you, and burn your house down. By following this guide you agree to do so at your own risk.
 This is not to discourage or to deter you. I'm not one of those who say "*if you don't feel comfortable doing it, leave it to the professional*", in fact I oppose this phrase, because if you don't push yourself beyond what's comfortable, you'll never learn to do these uncomfortable things. In my opinion it goes against DIY, so I encourage you to dive in the unknown and try to do what you've never done before. Just be aware of the risks.
 
-#### Project documentation
+## Project documentation
 Please visit my [SimpleDiySmartHome project page](https://scramblerusa.github.io/sdsh/) for detailed instructions on how to modify, program and assemble different kind of devices.
 
 ---
