@@ -1,0 +1,11 @@
+substitutions:
+  device_name: sample-dblm-switch
+  comment: Sample 2-gang switch with motion demo
+  main_switch_name: Main switch
+  side_switch_name: Second switch
+  motion_sensor_pin: P26
+
+packages:
+  common: !include .common.yaml
+  base: !include .common.wallswitch2.yaml
+  motion: !include .common.motion.yaml

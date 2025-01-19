@@ -1,0 +1,65 @@
+
+# Dual switch based on BK7231 double switch
+# expected substs:   main_light_name side_light_name
+
+bk72xx:
+  board: generic-bk7231n-qfn32-tuya
+
+binary_sensor:
+  - platform: gpio
+    id: main_on
+    pin:
+      number: P23
+      inverted: true
+      mode: INPUT_PULLUP
+    on_press:
+      then:
+        - switch.turn_on: main_switch
+  - platform: gpio
+    id: main_off
+    pin:
+      number: P8
+      inverted: true
+      mode: INPUT_PULLUP
+    on_press:
+      then:
+        - switch.turn_off: main_switch
+  - platform: gpio
+    id: side_on
+    pin:
+      number: P6
+      inverted: true
+      mode: INPUT_PULLUP
+    on_press:
+      then:
+        - switch.turn_on: side_switch
+  - platform: gpio
+    id: side_off
+    pin:
+      number: P7
+      inverted: true
+      mode: INPUT_PULLUP
+    on_press:
+      then:
+        - switch.turn_off: side_switch
+
+switch:
+  - platform: gpio
+    id: main_switch
+    name: "${main_switch_name}"
+    pin: P10
+    on_turn_on:
+      then:
+        - output.turn_off: internal_led
+    on_turn_off:
+      then:
+        - output.turn_on: internal_led
+  - platform: gpio
+    id: side_switch
+    name: "${side_switch_name}"
+    pin: P24
+
+output:
+  - platform: gpio
+    id: internal_led
+    pin: P11

@@ -1,0 +1,53 @@
+
+# A simple BK7231-based wall switch.
+# expected substs:   switch_name
+
+bk72xx:
+  board: generic-bk7231n-qfn32-tuya
+
+
+binary_sensor:
+  - platform: gpio
+    id: two_way_switch
+    pin:
+      number: P6
+      inverted: true
+      mode: INPUT_PULLUP
+    on_state:
+      then:
+        - switch.toggle: main_switch
+  - platform: gpio
+    id: main_on
+    pin:
+      number: P23
+      inverted: true
+      mode: INPUT_PULLUP
+    on_press:
+      then:
+        - switch.turn_on: main_switch
+  - platform: gpio
+    id: main_off
+    pin:
+      number: P1
+      inverted: false
+      mode: INPUT_PULLDOWN
+    on_press:
+      then:
+        - switch.turn_off: main_switch
+
+switch:
+  - platform: gpio
+    id: main_switch
+    name: "${switch_name}"
+    pin: P7
+    on_turn_on:
+      then:
+        - output.turn_off: internal_led
+    on_turn_off:
+      then:
+        - output.turn_on: internal_led
+
+output:
+  - platform: gpio
+    id: internal_led
+    pin: P26

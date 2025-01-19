@@ -1,0 +1,13 @@
+
+remote_receiver:
+  pin:
+    number: P8
+    inverted: false
+    mode: INPUT_PULLUP
+  tolerance: 25%
+  filter: 250us
+  idle: 5ms
+  buffer_size: 2kB
+#  dump:
+#    - rc_switch
+

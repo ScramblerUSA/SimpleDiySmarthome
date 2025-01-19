@@ -1,0 +1,22 @@
+substitutions:
+  device_name: sample-switch-tx
+  comment: Sample 1-gang switch with TX demo
+  switch_name: Sample switch
+
+packages:
+  common: !include .common.yaml
+  base: !include .common.wallswitch.yaml
+
+remote_transmitter:
+  pin: P11
+  carrier_duty_percent: 100%
+
+button:
+  - platform: template
+    name: Sample button
+    on_press:
+      - remote_transmitter.transmit_rc_switch_raw:
+          code: '1011010001010011000010100'
+          repeat:
+            times: 2
+            wait_time: 1ms

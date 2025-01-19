@@ -1,0 +1,31 @@
+substitutions:
+  device_name: sample-switch-rx
+  comment: Sample 1-gang switch with RX demo
+  switch_name: Sample switch
+
+packages:
+  common: !include .common.yaml
+  base: !include .common.wallswitch.yaml
+  radio: !include .common.wallswitch433.yaml
+
+binary_sensor:
+  - platform: remote_receiver
+    id: remote_on
+    rc_switch_raw:
+      code: "101011010100110101001100"
+      protocol: 4
+    filters:
+      - settle: 200ms
+    on_press:
+      then:
+        - switch.turn_on: main_switch
+  - platform: remote_receiver
+    id: remote_off
+    rc_switch_raw:
+      code: "101011010100110101000100"
+      protocol: 4
+    filters:
+      - settle: 200ms
+    on_press:
+      then:
+        - switch.turn_off: main_switch

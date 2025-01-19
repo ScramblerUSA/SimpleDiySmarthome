@@ -1,0 +1,103 @@
+
+# Motion sensor support. Designed to work with main_switch controlled by main_on and main_off buttons
+# expected substs:   main_switch_name motion_sensor_pin
+
+bk72xx:
+  board: generic-bk7231n-qfn32-tuya
+
+binary_sensor:
+  - id: !extend main_on
+    on_press:
+      then:
+        - lambda: id(motion_on) = false;
+    on_multi_click:
+    - timing:
+        - ON for at least 0.75s
+      then:                           # hold
+        - switch.turn_on: motion_en
+        - output.turn_on: internal_led
+        - delay: 200ms
+        - output.turn_off: internal_led
+        - delay: 200ms
+        - output.turn_on: internal_led
+        - delay: 200ms
+        - output.turn_off: internal_led
+  - id: !extend main_off
+    on_multi_click:
+    - timing:
+        - ON for at least 0.75s
+      then:                           # hold
+        - switch.turn_off: motion_en
+        - output.turn_off: internal_led
+        - delay: 200ms
+        - output.turn_on: internal_led
+  - platform: gpio
+    id: motion_sensor
+    pin:
+      number: "${motion_sensor_pin}"
+      inverted: false
+      mode: INPUT
+    on_press:
+      then:
+        - script.stop: motion_off_script
+        - if:
+            condition:
+              and:
+                - switch.is_on: motion_en
+                - switch.is_off: main_switch
+                - lambda: return ::millis() > id(motion_cooldown) && (::millis() - id(motion_cooldown)) > 10000;
+            then:
+              - lambda: id(motion_on) = true;
+              - switch.turn_on: main_switch
+    on_release:
+      then:
+        - script.execute: motion_off_script
+
+switch:
+  - platform: template
+    id: motion_en
+    name: "${main_switch_name} motion sensor"
+    icon: "mdi:motion-sensor"
+    optimistic: true
+    restore_mode: RESTORE_DEFAULT_ON
+  - id: !extend main_switch
+    on_turn_off:
+      then:
+        - lambda: |-
+            id(motion_on) = false;
+            if(id(motion_cooldown) < ::millis())
+              id(motion_cooldown) = ::millis();
+
+number:
+  - platform: template
+    id: motion_duration
+    name: Motion sensor ON time
+    icon: "mdi:motion-sensor"
+    unit_of_measurement: minutes
+    min_value: 0.5
+    max_value: 10
+    step: 0.5
+    restore_value: true
+    initial_value: 2
+    optimistic: true
+
+globals:
+  - id: motion_cooldown
+    type: long
+    initial_value: "::millis() + 30000"
+  - id: motion_on
+    type: bool
+
+script:
+  - id: motion_off_script
+    mode: restart
+    then:
+      - delay: !lambda "return (int)(id(motion_duration).state * 60000);"
+      - if:
+          condition:
+            and:
+              - switch.is_on: motion_en
+              - lambda: return id(motion_on) == true;
+          then:
+            - lambda: id(motion_cooldown) = ::millis();
+            - switch.turn_off: main_switch

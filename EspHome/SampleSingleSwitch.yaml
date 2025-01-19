@@ -1,0 +1,8 @@
+substitutions:
+  device_name: sample-switch
+  comment: Sample 1-gang switch demo
+  switch_name: Sample switch
+
+packages:
+  common: !include .common.yaml
+  base: !include .common.wallswitch.yaml

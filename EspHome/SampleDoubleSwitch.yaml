@@ -1,0 +1,9 @@
+substitutions:
+  device_name: sample-dbl-switch
+  comment: Sample 2-gang switch demo
+  main_switch_name: Main switch
+  side_switch_name: Second switch
+
+packages:
+  common: !include .common.yaml
+  base: !include .common.wallswitch2.yaml
