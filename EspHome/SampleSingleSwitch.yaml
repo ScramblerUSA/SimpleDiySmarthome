@@ -1,6 +1,13 @@
 substitutions:
+
+  # Put the device name in lowercase letters. This is the network name, so keep it short.
+  # Good examples are: dining-room-sw or garage-lights or backyard-light
   device_name: sample-switch
+
+  # Comment to be displayed in Home Assistant UI.
   comment: Sample 1-gang switch demo
+
+  # Name of the switch as it will be shown in the UI.
   switch_name: Sample switch
 
 packages:

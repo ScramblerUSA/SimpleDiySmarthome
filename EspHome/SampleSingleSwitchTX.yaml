@@ -1,6 +1,13 @@
 substitutions:
+
+  # Put the device name in lowercase letters. This is the network name, so keep it short.
+  # Good examples are: dining-room-sw or garage-lights or backyard-light
   device_name: sample-switch-tx
+
+  # Comment to be displayed in Home Assistant UI.
   comment: Sample 1-gang switch with TX demo
+
+  # Name of the switch as it will be shown in the UI.
   switch_name: Sample switch
 
 packages:
@@ -12,10 +19,14 @@ remote_transmitter:
   carrier_duty_percent: 100%
 
 button:
+  # You can copy and paste this entire block describing a button to add another one
   - platform: template
+    # Put the name of the button as it will be shown in the UI:
     name: Sample button
     on_press:
       - remote_transmitter.transmit_rc_switch_raw:
+          # Put the code you want to transmit here. Add an extra 0 at the end.
+          # E.g. if your button code is 010101, then put '0101010' here.
           code: '1011010001010011000010100'
           repeat:
             times: 2
