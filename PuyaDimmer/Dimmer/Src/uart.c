@@ -55,7 +55,7 @@ void UartConsumeBytes(uint8_t count)
   if(count > UartGetReceivedSize())
     Error_Handler();
   
-  g_rxStart = g_rxStart + count % UART_BUF_SIZE;
+  g_rxStart = (g_rxStart + count) % UART_BUF_SIZE;
 }
 
 
