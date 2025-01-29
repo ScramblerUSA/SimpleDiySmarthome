@@ -1,6 +1,13 @@
 substitutions:
+
+  # Put the device name in lowercase letters. This is the network name, so keep it short.
+  # Good examples are: dining-room-sw or garage-lights or backyard-light
   device_name: sample-switch-rx
+
+  # Comment to be displayed in Home Assistant UI.
   comment: Sample 1-gang switch with RX demo
+
+  # Name of the switch as it will be shown in the UI.
   switch_name: Sample switch
 
 packages:
@@ -12,6 +19,7 @@ binary_sensor:
   - platform: remote_receiver
     id: remote_on
     rc_switch_raw:
+      # Put your ON button's code here:
       code: "101011010100110101001100"
       protocol: 4
     filters:
@@ -22,6 +30,7 @@ binary_sensor:
   - platform: remote_receiver
     id: remote_off
     rc_switch_raw:
+      # Put your OFF button's code here:
       code: "101011010100110101000100"
       protocol: 4
     filters:
