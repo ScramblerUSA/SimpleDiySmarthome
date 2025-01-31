@@ -35,10 +35,11 @@ void UartSendString(char *str)
 
 uint8_t UartGetReceivedSize(void)
 {
-  if(g_rxEnd >= g_rxStart)
-    return g_rxEnd - g_rxStart;
+  int8_t size = g_rxEnd - g_rxStart;
+  if (size < 0)
+    size += UART_BUF_SIZE;
 
-  return UART_BUF_SIZE + g_rxEnd - g_rxStart;
+  return size;
 }
 
 uint8_t UartPeekByte(uint8_t position)
@@ -132,3 +133,38 @@ uint8_t UartReadMessage(uint8_t *msg, uint8_t *dlen, uint8_t *data)
   return 1;
 }
 
+
+
+
+void APP_UsartIRQCallback()
+{
+  if(LL_USART_IsActiveFlag_RXNE(USART1) && LL_USART_IsEnabledIT_RXNE(USART1))
+  {
+    g_rxBuffer[g_rxEnd] = LL_USART_ReceiveData8(USART1);
+    g_rxEnd++;
+
+    if(g_rxEnd >= UART_BUF_SIZE)
+      g_rxEnd = 0;
+
+    // check for buffer overflow
+    if(g_rxEnd == g_rxStart)
+    {
+      // modify the last received byte to be 0
+      uint8_t last = (g_rxEnd == 0) ? 99 : g_rxEnd - 1;
+      g_rxBuffer[last] = 0;
+    }
+  }
+  
+  if(LL_USART_IsActiveFlag_TXE(USART1) && LL_USART_IsEnabledIT_TXE(USART1))
+  {
+    LL_USART_TransmitData8(USART1, g_txBuffer[g_txStart]);
+    g_txStart++;
+    if(g_txStart >= UART_BUF_SIZE)
+      g_txStart = 0;
+
+    if(g_txStart == g_txEnd)
+    {
+      LL_USART_DisableIT_TXE(USART1);
+    }
+  }
+}

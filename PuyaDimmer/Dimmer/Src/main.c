@@ -550,39 +550,6 @@ uint8_t ReachedZcCount(uint32_t target)
 
 
 
-void APP_UsartIRQCallback()
-{
-  if(LL_USART_IsActiveFlag_RXNE(USART1) && LL_USART_IsEnabledIT_RXNE(USART1))
-  {
-    g_rxBuffer[g_rxEnd] = LL_USART_ReceiveData8(USART1);
-    g_rxEnd++;
-
-    if(g_rxEnd >= UART_BUF_SIZE)
-      g_rxEnd = 0;
-
-    // check for buffer overflow
-    if(g_rxEnd == g_rxStart)
-    {
-      // modify the last received byte to be 0
-      uint8_t last = (g_rxEnd == 0) ? 99 : g_rxEnd - 1;
-      g_rxBuffer[last] = 0;
-    }
-  }
-  
-  if(LL_USART_IsActiveFlag_TXE(USART1) && LL_USART_IsEnabledIT_TXE(USART1))
-  {
-    LL_USART_TransmitData8(USART1, g_txBuffer[g_txStart]);
-    g_txStart++;
-    if(g_txStart >= UART_BUF_SIZE)
-      g_txStart = 0;
-
-    if(g_txStart == g_txEnd)
-    {
-      LL_USART_DisableIT_TXE(USART1);
-    }
-  }
-}
-
 uint32_t zcTiming = 0;
 
 void APP_ZeroCrossingCallback(void)
