@@ -65,7 +65,7 @@ switch:
       then:
         - lambda: |-
             id(motion_on) = false;
-            if(id(motion_cooldown) < ::millis())
+            if(id(motion_cooldown) < ::millis() || id(motion_cooldown) > (::millis() + 1000000))
               id(motion_cooldown) = ::millis();
 
 number:
